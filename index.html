@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-<title>AR TypeLab — Test Your Speed. Improve Your Accuracy.</title>
-<meta name="description" content="AR TypeLab, a browser-based typing speed and accuracy test by AR Network House.">
+<title>TypeDrift — Test Your Speed. Improve Your Accuracy.</title>
+<meta name="description" content="TypeDrift, a browser-based typing speed and accuracy test by AR Network House.">
 
 <!-- =========================================================
      FONTS
@@ -242,6 +242,7 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
   transition:transform .15s var(--ease), box-shadow .15s var(--ease), background .15s var(--ease), border-color .15s var(--ease);
   min-height:48px;
 }
+#view-result .btn{ min-height:42px; padding:10px 18px; font-size:14px; }
 .btn:active{ transform:translateY(1px); }
 .btn-primary{
   background:var(--accent); color:#fff;
@@ -478,15 +479,34 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
 .result-wrap{ display:none; }
 .result-wrap.active{ display:block; animation:fadeIn .3s var(--ease); }
 
+#view-result{
+  padding: 12px 0 16px;
+  min-height: calc(100dvh - 64px);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+}
+#view-result.active{ display:flex; }
+#view-result .container{
+  display:flex; flex-direction:column; justify-content:center;
+  flex:1; width:100%;
+}
+#view-result .section-heading{ margin-bottom:16px; }
+#view-result .section-heading h2{ font-size:clamp(20px, 2.6vh, 28px); }
+
+.result-layout{
+  display:flex; align-items:stretch; justify-content:center;
+  gap:24px; flex-wrap:wrap;
+}
+
 .result-card{
-  max-width:560px; margin:0 auto;
+  flex:1 1 480px; max-width:560px;
   background:var(--accent);
   color:#fff;
   border-radius:var(--radius-lg);
-  padding:44px 36px 38px;
+  padding:32px 28px 28px;
   box-shadow:var(--shadow-lg);
   position:relative;
-  overflow:hidden;
   animation: resultPop .5s var(--ease);
   border:1px solid rgba(255,255,255,0.08);
 }
@@ -499,6 +519,14 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
   position:absolute; inset:0;
   background-image: linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px);
   background-size:24px 24px;
+}
+.result-confetti{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  z-index:50;
 }
 .result-glow{
   position:absolute; top:-90px; left:50%; transform:translateX(-50%);
@@ -514,20 +542,20 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
 .result-inner{ position:relative; z-index:1; }
 .result-brand{
   font-family:var(--font-display); font-size:12px; letter-spacing:0.14em;
-  text-transform:uppercase; color:#9AA6C4; margin-bottom:14px; text-align:center;
+  text-transform:uppercase; color:#9AA6C4; margin-bottom:8px; text-align:center;
 }
 .result-grade{
-  display:block; margin:0 auto 22px; width:fit-content;
+  display:block; margin:0 auto 14px; width:fit-content;
   font-family:var(--font-display); font-size:11px; font-weight:600; letter-spacing:0.1em;
   text-transform:uppercase; color:var(--accent);
   background:var(--brass);
   padding:6px 16px; border-radius:999px;
   box-shadow:0 4px 14px rgba(184,134,46,0.4);
 }
-.result-headline{ text-align:center; margin-bottom:26px; position:relative; }
+.result-headline{ text-align:center; margin-bottom:18px; position:relative; }
 .result-wpm{
   font-family:var(--font-display); font-weight:700;
-  font-size:72px; letter-spacing:-0.02em; line-height:1;
+  font-size:clamp(48px, 8vh, 64px); letter-spacing:-0.02em; line-height:1;
   text-shadow:0 0 32px rgba(184,134,46,0.45);
 }
 .result-wpm span{ font-size:16px; color:#9AA6C4; font-weight:500; letter-spacing:0.08em; }
@@ -541,25 +569,39 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
   border-radius:12px; overflow:hidden;
   margin-bottom:8px;
 }
-.result-grid .cell{ background:rgba(255,255,255,0.045); padding:14px 16px; }
+.result-grid .cell{ background:rgba(255,255,255,0.045); padding:10px 14px; }
 .result-grid .cell .k{ font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:#9AA6C4; }
 .result-grid .cell .v{ font-family:var(--font-display); font-weight:600; font-size:18px; margin-top:2px; }
 .result-footer-brand{
-  text-align:center; margin-top:22px; font-family:var(--font-display);
+  text-align:center; margin-top:14px; font-family:var(--font-display);
   font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:#8792B0;
 }
 
+.result-side{
+  flex:1 1 260px; max-width:320px;
+  display:flex; flex-direction:column; gap:20px;
+}
 .result-actions{
-  display:flex; gap:10px; justify-content:center; margin-top:28px; flex-wrap:wrap; max-width:560px; margin-left:auto; margin-right:auto;
+  display:flex; flex-direction:column; gap:10px;
+}
+.result-actions .btn{ width:100%; }
+
+@media (max-width:860px){
+  .result-layout{ flex-direction:column; align-items:center; gap:16px; }
+  .result-card, .result-side{ max-width:560px; width:100%; }
+  .result-actions{ flex-direction:row; flex-wrap:wrap; justify-content:center; gap:8px; }
+  .result-actions .btn{ width:auto; flex:1 1 auto; min-height:42px; padding:10px 16px; }
+  #view-result{ padding: 8px 0 12px; }
+  #view-result .section-heading{ margin-bottom:10px; }
 }
 
 /* ---------- Save score to Google Sheet ---------- */
 .save-score-card{
-  max-width:420px; margin:26px auto 0;
+  width:100%; margin:0;
   background:var(--surface);
   border:1px solid var(--line);
   border-radius:var(--radius-lg);
-  padding:22px 26px;
+  padding:16px 20px;
   box-shadow:var(--shadow-sm);
 }
 .save-score-prompt{ text-align:center; }
@@ -706,8 +748,20 @@ table.history-table tr:last-child td{ border-bottom:none; }
 }
 .auth-tab[aria-selected="true"]{ background:var(--accent); color:#fff; }
 
-.auth-panel{ display:none; flex-direction:column; gap:14px; }
-.auth-panel.active{ display:flex; }
+.auth-flip-outer{ perspective:1600px; }
+.auth-flip-inner{
+  position:relative;
+  transform-style:preserve-3d;
+  transition:transform .6s var(--ease), height .3s var(--ease);
+}
+.auth-flip-inner.flipped{ transform:rotateY(180deg); }
+
+.auth-panel{
+  display:flex; flex-direction:column; gap:14px;
+  backface-visibility:hidden; -webkit-backface-visibility:hidden;
+  position:absolute; top:0; left:0; width:100%;
+}
+.auth-panel.auth-panel-back{ transform:rotateY(180deg); }
 
 .auth-hint{ font-size:12.5px; color:var(--muted); text-align:center; margin-top:-4px; }
 .auth-status{ font-size:13px; min-height:16px; text-align:center; color:var(--muted); }
@@ -757,6 +811,9 @@ footer{
   font-size:13px;
   color:var(--muted);
 }
+body.result-mode footer{ display:none; }
+body.result-mode{ overflow:hidden; height:100dvh; }
+body.result-mode main{ height:calc(100dvh - 64px); overflow:hidden; }
 footer a{ color:var(--accent); text-decoration:none; font-weight:600; }
 footer a:hover{ text-decoration:underline; }
 footer br{ display:none; }
@@ -764,6 +821,17 @@ footer br{ display:none; }
 
 @media (prefers-reduced-motion: reduce){
   *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+
+  /* Auth flip: swap the 3D rotation for a quick opacity crossfade
+     instead of an instant, jarring cut. */
+  .auth-flip-inner{ transform:none !important; }
+  .auth-panel{
+    transform:none !important;
+    opacity:0; pointer-events:none;
+    transition:opacity .18s ease !important;
+  }
+  .auth-flip-inner:not(.flipped) .auth-panel-front{ opacity:1; pointer-events:auto; }
+  .auth-flip-inner.flipped .auth-panel-back{ opacity:1; pointer-events:auto; }
 }
 </style>
 </head>
@@ -775,12 +843,9 @@ footer br{ display:none; }
 <header class="site-header">
   <div class="header-inner">
     <div class="brand-block">
-      <span class="brand-name">AR <span>Type</span>Lab</span>
+      <span class="brand-name">Type<span>Drift</span></span>
       <span class="brand-sub">by AR Network House</span>
     </div>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
-      <span></span>
-    </button>
     <nav class="main-nav" id="mainNav" aria-label="Main navigation">
       <button class="nav-btn" data-view="home" aria-current="page">Home</button>
       <button class="nav-btn" data-view="test">Typing Test</button>
@@ -794,6 +859,9 @@ footer br{ display:none; }
         <button class="auth-logout-btn" id="headerLogoutBtn" type="button">Logout</button>
       </div>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span>
+    </button>
   </div>
 </header>
 
@@ -808,7 +876,7 @@ footer br{ display:none; }
       <div>
         <span class="eyebrow">Precision typing instrument</span>
         <h1>Test your speed.<br><em>Improve</em> your accuracy.</h1>
-        <p class="hero-tagline">AR TypeLab measures how fast and how precisely you type, character by character, so you can build real, measurable typing skill.</p>
+        <p class="hero-tagline">TypeDrift measures how fast and how precisely you type, character by character, so you can build real, measurable typing skill.</p>
         <div class="hero-actions">
           <button class="btn btn-primary" id="heroStartBtn">Start Test</button>
           <button class="btn btn-secondary" data-view-link="stats">View Statistics</button>
@@ -850,7 +918,7 @@ footer br{ display:none; }
     <!-- Pre-test panel -->
     <div id="preTestPanel">
       <div class="section-heading">
-        <span class="eyebrow">AR TypeLab</span>
+        <span class="eyebrow">TypeDrift</span>
         <h2>Ready to test your typing speed?</h2>
         <p>Choose how long you'd like to type for. The default is one minute.</p>
       </div>
@@ -914,50 +982,55 @@ footer br{ display:none; }
       <h2>Here's how you did</h2>
     </div>
 
-    <div class="result-card" id="resultCard">
-      <div class="result-glow" aria-hidden="true"></div>
-      <span class="corner-tick tl" aria-hidden="true"></span>
-      <span class="corner-tick tr" aria-hidden="true"></span>
-      <span class="corner-tick bl" aria-hidden="true"></span>
-      <span class="corner-tick br" aria-hidden="true"></span>
-      <div class="result-inner">
-        <div class="result-brand">AR TypeLab</div>
-        <span class="result-grade" id="resGrade">Good Pace</span>
-        <div class="result-headline">
-          <div class="result-wpm" id="resWpm">0<span> WPM</span></div>
-          <div class="result-acc" id="resAcc">100% Accuracy</div>
+    <div class="result-layout">
+      <div class="result-card" id="resultCard">
+        <div class="result-glow" aria-hidden="true"></div>
+        <span class="corner-tick tl" aria-hidden="true"></span>
+        <span class="corner-tick tr" aria-hidden="true"></span>
+        <span class="corner-tick bl" aria-hidden="true"></span>
+        <span class="corner-tick br" aria-hidden="true"></span>
+        <canvas class="result-confetti" id="resultConfetti" aria-hidden="true"></canvas>
+        <div class="result-inner">
+          <div class="result-brand">TypeDrift</div>
+          <span class="result-grade" id="resGrade">Good Pace</span>
+          <div class="result-headline">
+            <div class="result-wpm" id="resWpm">0<span> WPM</span></div>
+            <div class="result-acc" id="resAcc">100% Accuracy</div>
+          </div>
+          <div class="result-grid">
+            <div class="cell"><div class="k">Correct Characters</div><div class="v" id="resCorrect">0</div></div>
+            <div class="cell"><div class="k">Incorrect Characters</div><div class="v" id="resIncorrect">0</div></div>
+            <div class="cell"><div class="k">Total Characters</div><div class="v" id="resTotal">0</div></div>
+            <div class="cell"><div class="k">Words Typed</div><div class="v" id="resWords">0</div></div>
+            <div class="cell" style="grid-column:1/-1;"><div class="k">Test Duration</div><div class="v" id="resDuration">01:00</div></div>
+          </div>
+          <div class="result-footer-brand">AR Network House</div>
         </div>
-        <div class="result-grid">
-          <div class="cell"><div class="k">Correct Characters</div><div class="v" id="resCorrect">0</div></div>
-          <div class="cell"><div class="k">Incorrect Characters</div><div class="v" id="resIncorrect">0</div></div>
-          <div class="cell"><div class="k">Total Characters</div><div class="v" id="resTotal">0</div></div>
-          <div class="cell"><div class="k">Words Typed</div><div class="v" id="resWords">0</div></div>
-          <div class="cell" style="grid-column:1/-1;"><div class="k">Test Duration</div><div class="v" id="resDuration">01:00</div></div>
-        </div>
-        <div class="result-footer-brand">AR Network House</div>
-      </div>
-    </div>
-
-    <div class="result-actions">
-      <button class="btn btn-primary" id="tryAgainBtn">Try Again</button>
-      <button class="btn btn-secondary" id="changeTimeBtn">Change Time</button>
-      <button class="btn btn-ghost" id="backHomeBtn">Back to Home</button>
-      <button class="btn btn-brass" id="downloadResultBtn">Download Result</button>
-    </div>
-
-    <!-- Save score to Google Sheet (requires login) -->
-    <div class="save-score-card" id="saveScoreCard">
-      <div class="save-score-prompt" id="saveScorePrompt">
-        <p id="saveScorePromptText">Want to save this score online?</p>
-        <div class="save-score-btns">
-          <button class="btn btn-ghost" id="saveNoBtn" type="button">No, thanks</button>
-          <button class="btn btn-brass" id="saveYesBtn" type="button">Yes, save it</button>
-        </div>
-        <p class="save-status" id="saveStatus" style="margin-top:12px;"></p>
       </div>
 
-      <div class="save-score-success" id="saveSuccess">
-        <p>&#10003; Score saved successfully.</p>
+      <div class="result-side">
+        <div class="result-actions">
+          <button class="btn btn-primary" id="tryAgainBtn">Try Again</button>
+          <button class="btn btn-secondary" id="changeTimeBtn">Change Time</button>
+          <button class="btn btn-ghost" id="backHomeBtn">Back to Home</button>
+          <button class="btn btn-brass" id="downloadResultBtn">Download Result</button>
+        </div>
+
+        <!-- Save score to Google Sheet (requires login) -->
+        <div class="save-score-card" id="saveScoreCard">
+          <div class="save-score-prompt" id="saveScorePrompt">
+            <p id="saveScorePromptText">Want to save this score online?</p>
+            <div class="save-score-btns">
+              <button class="btn btn-ghost" id="saveNoBtn" type="button">No, thanks</button>
+              <button class="btn btn-brass" id="saveYesBtn" type="button">Yes, save it</button>
+            </div>
+            <p class="save-status" id="saveStatus" style="margin-top:12px;"></p>
+          </div>
+
+          <div class="save-score-success" id="saveSuccess">
+            <p>&#10003; Score saved successfully.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -999,11 +1072,11 @@ footer br{ display:none; }
 <section class="view" id="view-about">
   <div class="container">
     <div class="section-heading">
-      <span class="eyebrow">About AR TypeLab</span>
+      <span class="eyebrow">About TypeDrift</span>
       <h2>Built to measure real typing skill</h2>
     </div>
     <div class="about-card">
-      <p>AR TypeLab is a browser-based typing practice and speed testing tool developed to help users measure their typing speed, improve accuracy, and build better typing consistency.</p>
+      <p>TypeDrift is a browser-based typing practice and speed testing tool developed to help users measure their typing speed, improve accuracy, and build better typing consistency.</p>
       <p>Every test checks your input character by character, so you always know exactly what was typed correctly, what was missed, and where you are in the passage. Results are calculated using standard WPM and accuracy formulas, and your history stays saved privately in this browser.</p>
       <div class="about-brand-line">A product by <a href="https://arnetworkhouse.in/" target="_blank" rel="noopener">AR NETWORK HOUSE</a></div>
     </div>
@@ -1034,14 +1107,17 @@ footer br{ display:none; }
 
     <!-- Step 1: Login / Sign up tabs -->
     <div id="authStepForms">
-      <h3 id="authModalTitle" style="margin-bottom:16px;">Your AR TypeLab account</h3>
+      <h3 id="authModalTitle" style="margin-bottom:16px;">Your TypeDrift account</h3>
       <div class="auth-tabs" role="tablist">
         <button class="auth-tab" id="authTabLogin" role="tab" aria-selected="true" type="button">Log In</button>
         <button class="auth-tab" id="authTabSignup" role="tab" aria-selected="false" type="button">Sign Up</button>
       </div>
 
+      <div class="auth-flip-outer">
+      <div class="auth-flip-inner" id="authFlipInner">
+
       <!-- Login panel -->
-      <form class="auth-panel active" id="loginPanel" novalidate>
+      <form class="auth-panel auth-panel-front active" id="loginPanel" novalidate>
         <div class="form-row">
           <label for="loginEmail">Email</label>
           <input type="email" id="loginEmail" placeholder="you@example.com" autocomplete="email">
@@ -1059,7 +1135,7 @@ footer br{ display:none; }
       </form>
 
       <!-- Signup panel -->
-      <form class="auth-panel" id="signupPanel" novalidate>
+      <form class="auth-panel auth-panel-back" id="signupPanel" novalidate>
         <div class="form-row">
           <label for="signupUsername">Username</label>
           <input type="text" id="signupUsername" placeholder="Your name" autocomplete="name">
@@ -1082,6 +1158,9 @@ footer br{ display:none; }
           <button class="btn btn-primary" id="signupSubmitBtn" type="submit">Sign Up</button>
         </div>
       </form>
+
+      </div>
+      </div>
     </div>
 
     <!-- Step 2: OTP verification (shown after signup) -->
@@ -1160,7 +1239,7 @@ footer br{ display:none; }
      FOOTER
 ========================================================= -->
 <footer>
-    Game maintained by
+    Site maintained by
     <a href="https://arnetworkhouse.in/" target="_blank" rel="noopener">
         AR NETWORK HOUSE
     </a>
@@ -1250,6 +1329,7 @@ function showView(name){
     if(b.dataset.view === name){ b.setAttribute("aria-current","page"); }
     else{ b.removeAttribute("aria-current"); }
   });
+  document.body.classList.toggle("result-mode", name === "result");
   document.getElementById("mainNav").classList.remove("open");
   navToggle.setAttribute("aria-expanded","false");
   window.scrollTo({top:0, behavior:"instant" in window ? "instant" : "auto"});
@@ -1573,6 +1653,106 @@ function showResult(s, durationUsed){
   resetSaveScoreUI();
 
   showView("result");
+  requestAnimationFrame(() => requestAnimationFrame(launchResultConfetti));
+}
+
+/* =========================================================
+   10b. RESULT CELEBRATION — party popper
+========================================================= */
+let confettiRaf = 0;
+function launchResultConfetti(){
+  const canvas = document.getElementById("resultConfetti");
+  const card = document.getElementById("resultCard");
+  if(!canvas || !card) return;
+
+  const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if(reduceMotion) return;
+
+  if(confettiRaf) cancelAnimationFrame(confettiRaf);
+
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const W = card.offsetWidth;
+  const H = card.offsetHeight;
+  if(!W || !H) return;
+
+  canvas.width = Math.floor(W * dpr);
+  canvas.height = Math.floor(H * dpr);
+  canvas.style.width = W + "px";
+  canvas.style.height = H + "px";
+  const ctx = canvas.getContext("2d");
+  if(!ctx) return;
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  const originX = W / 2;
+  const originY = H; // Start from bottom of the card
+
+  const confettiColors = [
+    '#FFC700', '#FF00C1', '#00FFFF', '#FF0000', '#00FF00', '#0000FF',
+    '#FFA500', '#FF4500', '#DA70D6', '#ADD8E6'
+  ];
+
+  const particles = [];
+  const particleCount = 100;
+  const gravity = 0.12;
+
+  for(let i = 0; i < particleCount; i++){
+    const angle = (Math.PI * 1.2) + Math.random() * Math.PI * 0.6; // Mostly up
+    const speed = 4 + Math.random() * 8;
+    const color = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+    const size = 4 + Math.random() * 6;
+
+    particles.push({
+      x: originX + (Math.random() - 0.5) * 40,
+      y: originY,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed - 3,
+      size: size,
+      rotation: Math.random() * Math.PI * 2,
+      rotationSpeed: (Math.random() - 0.5) * 0.4,
+      life: 0,
+      maxLife: 100 + Math.random() * 80,
+      color: color,
+      delay: Math.floor(Math.random() * 15)
+    });
+  }
+
+  const start = performance.now();
+  function frame(now){
+    ctx.clearRect(0, 0, W, H);
+    let alive = false;
+    for(let i = 0; i < particles.length; i++){
+      const p = particles[i];
+      if(p.delay > 0){ p.delay--; alive = true; continue; }
+      p.life++;
+      if(p.life > p.maxLife) continue;
+      alive = true;
+
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += gravity;
+      p.rotation += p.rotationSpeed;
+
+      const t = p.life / p.maxLife;
+      const alpha = 1 - t;
+
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rotation);
+      ctx.fillStyle = p.color;
+      ctx.globalAlpha = alpha;
+
+      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+
+      ctx.restore();
+    }
+    if(alive && now - start < 5000){
+      confettiRaf = requestAnimationFrame(frame);
+    } else {
+      ctx.clearRect(0, 0, W, H);
+      confettiRaf = 0;
+    }
+  }
+  confettiRaf = requestAnimationFrame(frame);
 }
 
 document.getElementById("tryAgainBtn").addEventListener("click", () => {
@@ -1607,7 +1787,7 @@ document.getElementById("downloadResultBtn").addEventListener("click", () => {
     ctx.textAlign = "center";
     ctx.fillStyle = "#9AA6C4";
     ctx.font = "600 16px monospace";
-    ctx.fillText("A R   T Y P E L A B", c.width/2, 70);
+    ctx.fillText("T Y P E D R I F T", c.width/2, 70);
 
     ctx.fillStyle = "#FFFFFF";
     ctx.font = "700 96px monospace";
@@ -1646,7 +1826,7 @@ document.getElementById("downloadResultBtn").addEventListener("click", () => {
     ctx.fillText("A R   N E T W O R K   H O U S E", c.width/2, 470);
 
     const link = document.createElement("a");
-    link.download = "ar-typelab-result.png";
+    link.download = "typedrift-result.png";
     link.href = c.toDataURL("image/png");
     link.click();
     showToast("Result image downloaded.");
@@ -1935,10 +2115,10 @@ function showAuthStep(step){
 
 function openAuthModal(defaultTab, onSuccess){
   pendingAuthSuccess = onSuccess || null;
+  authModal.classList.add("active");
   showAuthStep("forms");
   setAuthTab(defaultTab || "login");
   clearAuthStatuses();
-  authModal.classList.add("active");
 }
 function closeAuthModal(){
   authModal.classList.remove("active");
@@ -1949,14 +2129,29 @@ function closeAuthModal(){
 function clearAuthStatuses(){
   [loginStatus, signupStatus, otpStatus, forgotEmailStatus, forgotResetStatus].forEach(el => { el.textContent = ""; el.className = "auth-status"; });
 }
+const authFlipInner = document.getElementById("authFlipInner");
+
+function syncAuthFlipHeight(){
+  const h = Math.max(loginPanel.offsetHeight, signupPanel.offsetHeight);
+  authFlipInner.style.height = h + "px";
+}
+
 function setAuthTab(tab){
   const isLogin = tab === "login";
   authTabLogin.setAttribute("aria-selected", isLogin ? "true" : "false");
   authTabSignup.setAttribute("aria-selected", isLogin ? "false" : "true");
   loginPanel.classList.toggle("active", isLogin);
   signupPanel.classList.toggle("active", !isLogin);
+  syncAuthFlipHeight();
+  authFlipInner.classList.toggle("flipped", !isLogin);
+  loginPanel.setAttribute("aria-hidden", isLogin ? "false" : "true");
+  signupPanel.setAttribute("aria-hidden", isLogin ? "true" : "false");
+  loginPanel.querySelectorAll("input,button").forEach(el => el.tabIndex = isLogin ? 0 : -1);
+  signupPanel.querySelectorAll("input,button").forEach(el => el.tabIndex = isLogin ? -1 : 0);
   clearAuthStatuses();
 }
+
+window.addEventListener("resize", () => { if(authModal.classList.contains("active")) syncAuthFlipHeight(); });
 
 headerAuthBtn.addEventListener("click", () => openAuthModal("login", null));
 authTabLogin.addEventListener("click", () => setAuthTab("login"));
