@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<link rel="icon" href="https://raw.githubusercontent.com/arnetworkhouse-oss/TypeDrift/main/typedrift.png" type="image/png">
 <title>TypeDrift — Test Your Speed. Improve Your Accuracy.</title>
 <meta name="description" content="TypeDrift, a browser-based typing speed and accuracy test by AR Network House.">
 
@@ -116,6 +117,15 @@ header.site-header{
   display:flex; align-items:center; justify-content:space-between;
   padding:14px 24px;
   max-width:1080px; margin:0 auto;
+}
+.brand{
+  display:flex; align-items:center; gap:12px;
+  text-decoration:none; color:inherit;
+}
+.brand-img{
+  flex-shrink:0;
+  width:36px; height:36px;
+  object-fit:contain;
 }
 .brand-block{ display:flex; flex-direction:column; line-height:1.1; }
 .brand-name{
@@ -653,7 +663,7 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
   text-align:center;
   font-family:'Playfair Display', 'Times New Roman', serif;
   font-weight:700; font-style:italic;
-  font-size:clamp(14px, 3.1vw, 34px);
+  font-size:clamp(26px, 5.2vw, 54px);
   line-height:1.1;
   color:var(--accent);
   letter-spacing:0.01em;
@@ -661,13 +671,16 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
   overflow:hidden;
   text-overflow:ellipsis;
 }
-.cert-name::after{
-  content:'';
-  display:block; margin:0.32em auto 0;
-  width:min(210px, 34%); height:2px;
-  background:linear-gradient(90deg, transparent, var(--brass), transparent);
+.cert-meta{
+  position:absolute;
+  top:77.5%; left:50%;
+  transform:translate(-50%, -50%);
+  font-family:var(--font-body); font-weight:600;
+  font-size:clamp(9px, 1.3vw, 15px);
+  color:var(--ink-soft);
+  letter-spacing:0.04em;
+  white-space:nowrap;
 }
-
 .cert-metrics{
   position:absolute;
   top:70.6%; left:50%;
@@ -679,7 +692,7 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
 .cert-metrics .metric{ display:flex; flex-direction:column; align-items:center; gap:2px; min-width:0; }
 .cert-metrics .metric-value{
   font-family:var(--font-body); font-weight:800;
-  font-size:clamp(12px, 2.6vw, 26px);
+  font-size:clamp(16px, 3.4vw, 34px);
   color:var(--accent); letter-spacing:0.01em; white-space:nowrap;
 }
 .cert-metrics .metric-value .unit{
@@ -687,14 +700,23 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
   margin-left:0.28em; letter-spacing:0.06em; text-transform:uppercase;
 }
 .cert-metrics .metric-label{
-  font-size:clamp(6px, 0.95vw, 10px); font-weight:700;
-  letter-spacing:0.16em; text-transform:uppercase; color:var(--brass);
+  font-size:clamp(8px, 1.15vw, 12px);
+  font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--brass);
 }
 .cert-metrics .metric-divider{
   width:1px; align-self:stretch;
   background:linear-gradient(180deg, transparent, var(--line-strong) 20%, var(--line-strong) 80%, transparent);
 }
-
+.cert-meta{
+  position:absolute;
+  top:77.5%; left:50%;
+  transform:translate(-50%, -50%);
+  font-family:var(--font-body); font-weight:600;
+  font-size:clamp(9px, 1.3vw, 15px);
+  color:var(--ink-soft);
+  letter-spacing:0.04em;
+  white-space:nowrap;
+}
 .cert-actions{
   display:flex; align-items:center; justify-content:center; gap:14px;
   margin-top:18px;
@@ -772,6 +794,13 @@ nav.main-nav{ display:flex; gap:4px; align-items:center; }
   padding:18px 22px; border-bottom:1px solid var(--line);
 }
 .history-head h3{ font-size:16px; font-weight:700; }
+.history-actions-row{
+  display:flex; align-items:center; gap:8px;
+}
+.graph-icon{
+  flex-shrink:0;
+  width:16px; height:16px;
+}
 table.history-table{ width:100%; border-collapse:collapse; }
 table.history-table th{
   text-align:left; font-family:var(--font-display); font-size:11px;
@@ -824,6 +853,61 @@ table.history-table tr:last-child td{ border-bottom:none; }
 .modal-box p{ color:var(--muted); font-size:14px; margin-top:8px; }
 .modal-actions{ display:flex; gap:10px; margin-top:22px; }
 .modal-actions .btn{ flex:1; }
+
+.modal-header{
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom:8px;
+}
+.modal-close{
+  border:none; background:transparent; font-size:24px; line-height:1;
+  color:var(--muted); cursor:pointer; padding:4px; border-radius:4px;
+}
+.modal-close:hover{ background:var(--line); color:var(--ink); }
+.modal-subtitle{ color:var(--muted); font-size:13px; margin-top:0; }
+
+.leaderboard-table{ width:100%; border-collapse:collapse; font-size:13px; }
+.leaderboard-table th{
+  text-align:left; font-family:var(--font-display); font-size:10.5px;
+  letter-spacing:0.08em; text-transform:uppercase; color:var(--muted);
+  padding:10px 12px; border-bottom:1px solid var(--line);
+}
+.leaderboard-table td{
+  padding:10px 12px; border-bottom:1px solid var(--line);
+  color:var(--ink-soft);
+}
+.leaderboard-table tr:last-child td{ border-bottom:none; }
+.leaderboard-table .rank{ font-family:var(--font-display); font-weight:700; color:var(--accent); width:48px; }
+.leaderboard-table .name{ font-weight:600; color:var(--ink); }
+.leaderboard-table .wpm{ font-family:var(--font-display); font-weight:700; color:var(--brass); }
+.leaderboard-table .acc{ font-family:var(--font-display); color:var(--muted); }
+.leaderboard-table .dur{ font-family:var(--font-display); color:var(--muted); }
+
+.loading-bar-wrap{
+  margin:28px auto; text-align:center;
+}
+.loading-eq{
+  display:flex; align-items:flex-end; justify-content:center;
+  gap:5px; height:36px; margin:0 auto;
+}
+.loading-eq span{
+  display:block; width:6px; border-radius:3px;
+  background:linear-gradient(180deg, var(--brass), var(--accent));
+  animation:loading-eq-bounce 0.9s ease-in-out infinite;
+}
+.loading-eq span:nth-child(1){ height:40%; animation-delay:0s; }
+.loading-eq span:nth-child(2){ height:70%; animation-delay:0.12s; }
+.loading-eq span:nth-child(3){ height:100%; animation-delay:0.24s; }
+.loading-eq span:nth-child(4){ height:60%; animation-delay:0.36s; }
+.loading-eq span:nth-child(5){ height:85%; animation-delay:0.48s; }
+@keyframes loading-eq-bounce{
+  0%, 100%{ transform:scaleY(0.4); opacity:0.7; }
+  50%{ transform:scaleY(1); opacity:1; }
+}
+.loading-bar-label{
+  margin-top:12px; font-size:12px; color:var(--muted);
+}
+
+.top-typists-empty{ text-align:center; color:var(--muted); padding:24px 12px; }
 
 /* =========================================================
    9b. AUTH — header controls + login/signup/OTP modal
@@ -953,10 +1037,13 @@ footer br{ display:none; }
 ========================================================= -->
 <header class="site-header">
   <div class="header-inner">
-    <div class="brand-block">
-      <span class="brand-name">Type<span>Drift</span></span>
-      <span class="brand-sub">by AR Network House</span>
-    </div>
+    <a class="brand" href="#" data-view="home" aria-label="TypeDrift home">
+      <img src="https://raw.githubusercontent.com/arnetworkhouse-oss/TypeDrift/main/typedrift.png" alt="TypeDrift Logo" class="brand-img">
+      <div class="brand-block">
+        <span class="brand-name">Type<span>Drift</span></span>
+        <span class="brand-sub">by AR Network House</span>
+      </div>
+    </a>
     <nav class="main-nav" id="mainNav" aria-label="Main navigation">
       <button class="nav-btn" data-view="home" aria-current="page">Home</button>
       <button class="nav-btn" data-view="test">Typing Test</button>
@@ -1124,8 +1211,7 @@ footer br{ display:none; }
           <button class="btn btn-primary" id="tryAgainBtn">Try Again</button>
           <button class="btn btn-secondary" id="changeTimeBtn">Change Time</button>
           <button class="btn btn-ghost" id="backHomeBtn">Back to Home</button>
-          <button class="btn btn-brass" id="downloadResultBtn">Download Result</button>
-          <button class="btn btn-secondary" id="viewCertBtn">View Certificate</button>
+          <button class="btn btn-brass" id="downloadCertBtn">Download Certificate</button>
         </div>
 
         <!-- Save score to Google Sheet (requires login) -->
@@ -1149,17 +1235,8 @@ footer br{ display:none; }
     <!-- ===================================================
          CERTIFICATE OF PARTICIPATION (TypeDrift × AR Network House)
     =================================================== -->
-    <div class="cert-section" id="certSection">
-      <div class="cert-section-head">
-        <h3>Your Certificate</h3>
-        <button class="btn btn-ghost" id="closeCertBtn" type="button">Close</button>
-      </div>
-
-      <div class="cert-name-field">
-        <label for="certNameInput">Name on certificate</label>
-        <input type="text" id="certNameInput" placeholder="Enter your name">
-      </div>
-
+    <!-- HIDDEN CERTIFICATE FOR GENERATION -->
+    <div id="certSection" style="display:none !important;">
       <div id="certWrap">
         <div class="certificate" id="certificate">
           <div class="cert-name" id="certName">Candidate Name</div>
@@ -1174,13 +1251,11 @@ footer br{ display:none; }
               <div class="metric-label">Precision</div>
             </div>
           </div>
+          <div class="cert-meta" id="certMeta">Date — · Duration —</div>
         </div>
       </div>
-
-      <div class="cert-actions">
-        <button class="btn btn-brass" id="downloadCertBtn" type="button">Download Certificate</button>
-        <span class="cert-status" id="certStatus"></span>
-      </div>
+      <span class="cert-status" id="certStatus"></span>
+    </div>
     </div>
   </div>
 </section>
@@ -1206,11 +1281,18 @@ footer br{ display:none; }
     <div class="history-card">
       <div class="history-head">
         <h3>Recent tests</h3>
+        <div class="history-actions-row">
+          <button class="btn btn-primary" id="checkTopTypistBtn" type="button">
+            <svg class="graph-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M3 3v18h18"/>
+              <path d="m19 9-5 5-4-4-3 3"/>
+            </svg>
+            Check Top Typist
+          </button>
+          <button class="btn btn-ghost" id="clearStatsBtn">Clear Statistics</button>
+        </div>
       </div>
       <div id="historyBody"></div>
-      <div class="history-actions">
-        <button class="btn btn-ghost" id="clearStatsBtn">Clear Statistics</button>
-      </div>
     </div>
   </div>
 </section>
@@ -1244,6 +1326,25 @@ footer br{ display:none; }
     <div class="modal-actions">
       <button class="btn btn-ghost" id="cancelClearBtn">Cancel</button>
       <button class="btn btn-primary" id="confirmClearBtn" style="background:var(--bad);">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     MODAL: TOP TYPISTS LEADERBOARD
+========================================================= -->
+<div class="modal-overlay" id="topTypistsModal">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="topTypistsTitle">
+    <div class="modal-header">
+      <h3 id="topTypistsTitle">Top Typists</h3>
+      <button class="modal-close" id="closeTopTypistsBtn" aria-label="Close">&times;</button>
+    </div>
+    <p class="modal-subtitle">Fastest speeds from the global leaderboard</p>
+    <div id="topTypistsBody">
+      <div class="loading-bar-wrap" aria-busy="true" aria-label="Loading leaderboard…">
+        <div class="loading-eq"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="loading-bar-label">Loading leaderboard…</div>
+      </div>
     </div>
   </div>
 </div>
@@ -1398,7 +1499,7 @@ footer br{ display:none; }
           MORE GAMES
       </a>
       &nbsp;|&nbsp;
-      <a href="https://arnetworkhouse-oss.github.io/snake-game/feedback_snake_game.html" target="_blank" rel="noopener">
+      <a href="https://typedrift.arnetworkhouse.in/feedback/" target="_blank" rel="noopener">
           RATE US
       </a>
     </span>
@@ -1435,7 +1536,31 @@ const PASSAGES = [
 "Public speaking becomes easier with practice, not because nervousness disappears completely, but because experience teaches you how to keep moving forward even when your hands are shaking.",
 "Cities grow and change constantly, layering new architecture over old foundations, so that a single street can tell the story of a hundred years within the span of a few blocks.",
 "Good habits are built through small, repeatable actions rather than occasional bursts of motivation. Showing up consistently, even briefly, matters more than rare moments of intense effort.",
-"Music has the unusual ability to carry memory. A single familiar melody can instantly transport someone back to a specific place, person, or moment from years in the past."
+"Music has the unusual ability to carry memory. A single familiar melody can instantly transport someone back to a specific place, person, or moment from years in the past.",
+"Deep focus is a skill that fades without practice. In a world full of constant notifications, the ability to sit with one task for an uninterrupted hour has become genuinely rare.",
+"Bridges do more than connect two pieces of land. They represent the human instinct to close distances, to make the far side of a river or valley feel reachable and familiar.",
+"A recipe is really just a set of instructions written by someone who has already made every mistake for you, so that your first attempt can start closer to their hundredth.",
+"The best feedback is specific rather than general. Telling someone exactly what to change helps far more than simply telling them that something feels slightly off.",
+"Old photographs capture more than faces. They hold the fashion, furniture, and small details of an era that most people forget to notice while they are still living through it.",
+"Debugging a program often teaches more than writing it in the first place, because tracing an error forces you to understand every assumption your code quietly depends on.",
+"A long walk without headphones gives the mind room to wander freely, often producing clearer thoughts than an hour spent staring directly at the problem you are trying to solve.",
+"Every profession has its own hidden vocabulary, a set of small terms that outsiders rarely notice but that insiders use constantly to describe the details of their daily work.",
+"Storms remind coastal towns of their fragility, yet those same towns are often rebuilt again and again, held together by a stubborn attachment to a particular strip of shoreline.",
+"Handwriting reveals patience in a way that typing rarely does, since every letter must be shaped individually rather than summoned instantly with a single press of a key.",
+"A good question can be more valuable than a good answer, because it reframes a problem in a way that suddenly makes several answers easier to see at once.",
+"Traffic moves in patterns that feel chaotic up close but often look remarkably orderly from above, shaped by rules that individual drivers never consciously think about.",
+"Museums preserve objects, but they also preserve context, arranging artifacts so that visitors understand not just what something is, but why it once mattered to someone.",
+"Learning to cook without a recipe usually comes after years of following one closely, since intuition in the kitchen is mostly memorized pattern recognition in disguise.",
+"A well designed tool disappears into the task it supports, drawing no attention to itself while quietly making the person using it faster, calmer, and more capable.",
+"Silence in a conversation is often mistaken for awkwardness, when in reality it frequently means both people are simply taking a moment to think before speaking again.",
+"Coastal fog rolls in gradually, softening the edges of buildings and streets until an entire city seems to fade into a version of itself that feels quieter and less certain.",
+"Habits formed under pressure rarely last once that pressure disappears, which is why lasting change is usually built during calm periods rather than urgent ones.",
+"A library card once felt like a small key to an enormous room, granting access to more stories and facts than any single person could read in an entire lifetime.",
+"Good design solves problems the user never had to consciously articulate, anticipating friction before it appears and quietly removing it from the experience entirely.",
+"Long distance friendships survive on small consistent effort rather than grand gestures, thriving on brief regular messages more than infrequent elaborate reunions.",
+"A single typo can change the meaning of an entire sentence, which is exactly why careful proofreading matters just as much as the original idea being communicated.",
+"Night trains carry a particular kind of stillness, rocking gently through towns that passengers will never see, lit only briefly by passing signal lights along the track.",
+"Confidence built through practice tends to last far longer than confidence built through praise, because it is rooted in something the person can repeat on demand."
 ];
 
 let currentPassage = "";
@@ -1918,112 +2043,13 @@ document.getElementById("backHomeBtn").addEventListener("click", () => {
 });
 
 /* =========================================================
-   11. DOWNLOAD RESULT AS IMAGE (canvas, no external libs)
+   11b. CERTIFICATE OF PARTICIPATION (download)
 ========================================================= */
-document.getElementById("downloadResultBtn").addEventListener("click", () => {
-  try{
-    const c = document.createElement("canvas");
-    c.width = 800; c.height = 500;
-    const ctx = c.getContext("2d");
-
-    // background
-    ctx.fillStyle = "#16233F";
-    ctx.fillRect(0,0,c.width,c.height);
-    ctx.strokeStyle = "rgba(255,255,255,0.05)";
-    for(let x=0;x<c.width;x+=28){ ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,c.height); ctx.stroke(); }
-    for(let y=0;y<c.height;y+=28){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(c.width,y); ctx.stroke(); }
-
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#9AA6C4";
-    ctx.font = "600 16px monospace";
-    ctx.fillText("T Y P E D R I F T", c.width/2, 70);
-
-    ctx.fillStyle = "#FFFFFF";
-    ctx.font = "700 96px monospace";
-    ctx.fillText(document.getElementById("resWpm").textContent.replace("WPM","").trim(), c.width/2, 210);
-
-    ctx.fillStyle = "#9AA6C4";
-    ctx.font = "600 20px monospace";
-    ctx.fillText("WPM", c.width/2, 245);
-
-    ctx.fillStyle = "#B8862E";
-    ctx.font = "600 24px monospace";
-    ctx.fillText(document.getElementById("resAcc").textContent, c.width/2, 295);
-
-    const rows = [
-      ["Correct Characters", document.getElementById("resCorrect").textContent],
-      ["Incorrect Characters", document.getElementById("resIncorrect").textContent],
-      ["Total Characters", document.getElementById("resTotal").textContent],
-      ["Words Typed", document.getElementById("resWords").textContent],
-      ["Duration", document.getElementById("resDuration").textContent],
-    ];
-    ctx.font = "500 16px sans-serif";
-    let y = 350;
-    rows.forEach(([k,v]) => {
-      ctx.fillStyle = "#9AA6C4";
-      ctx.textAlign = "left";
-      ctx.fillText(k, 120, y);
-      ctx.fillStyle = "#FFFFFF";
-      ctx.textAlign = "right";
-      ctx.fillText(v, c.width-120, y);
-      y += 30;
-    });
-
-    ctx.textAlign = "center";
-    ctx.fillStyle = "#8792B0";
-    ctx.font = "600 13px monospace";
-    ctx.fillText("A R   N E T W O R K   H O U S E", c.width/2, 470);
-
-    const link = document.createElement("a");
-    link.download = "typedrift-result.png";
-    link.href = c.toDataURL("image/png");
-    link.click();
-    showToast("Result image downloaded.");
-  }catch(err){
-    showToast("Could not generate image. Try a screenshot instead.");
-  }
-});
-
-/* =========================================================
-   11b. CERTIFICATE OF PARTICIPATION (view / download)
-========================================================= */
-const certSection    = document.getElementById("certSection");
-const certNameInput  = document.getElementById("certNameInput");
-const certNameEl     = document.getElementById("certName");
-const certWpmEl      = document.getElementById("certWpm");
-const certAccEl      = document.getElementById("certAcc");
-const certStatusEl   = document.getElementById("certStatus");
-
-function fillCertFromResult(){
-  const r = lastResultPayload || {};
-  certWpmEl.innerHTML = (r.wpm ?? 0) + "<span class=\"unit\">WPM</span>";
-  certAccEl.innerHTML = (r.accuracy ?? 0) + "<span class=\"unit\">% Accuracy</span>";
-  updateCertName();
-}
-function updateCertName(){
-  const name = certNameInput.value.trim();
-  certNameEl.textContent = name || "Your Name";
-}
-
-document.getElementById("viewCertBtn").addEventListener("click", () => {
-  const session = getSession();
-  if(session && !certNameInput.value.trim()) certNameInput.value = session.username || "";
-  fillCertFromResult();
-  certStatusEl.textContent = "";
-  certStatusEl.className = "cert-status";
-  certSection.classList.add("active");
-  certSection.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-document.getElementById("closeCertBtn").addEventListener("click", () => {
-  certSection.classList.remove("active");
-});
-certNameInput.addEventListener("input", updateCertName);
-
 function doDownloadCertificate(){
+
   const btn = document.getElementById("downloadCertBtn");
   btn.disabled = true;
-  certStatusEl.textContent = "Generating…";
-  certStatusEl.className = "cert-status";
+  showToast("Generating certificate…");
 
   const bg = new Image();
   bg.onload = () => {
@@ -2034,19 +2060,22 @@ function doDownloadCertificate(){
       const ctx = c.getContext("2d");
       ctx.drawImage(bg, 0, 0, W, H);
 
-      const name = certNameInput.value.trim() || "Your Name";
+      const session = getSession();
+      const name = session ? session.username : "Your Name";
       const r = lastResultPayload || {};
+      const dateStr = new Date().toLocaleDateString(undefined,{year:"numeric",month:"long",day:"numeric"});
+      const durStr = fmtTime(r.duration || 0);
 
-      // Name (matches .cert-name: top 38.2%, italic serif, navy)
+      // Name — bigger
       ctx.textAlign = "center";
       ctx.fillStyle = "#16233F";
-      ctx.font = "italic 700 " + Math.round(H*0.045) + "px 'Playfair Display','Times New Roman',serif";
+      ctx.font = "italic 700 " + Math.round(H*0.072) + "px 'Playfair Display','Times New Roman',serif";
       ctx.fillText(name, W/2, H*0.382);
 
-      // Metrics row (matches .cert-metrics: centered, top 70.6%, inside the box)
+      // Metrics row — bigger
       const metricY = H*0.706;
       const gap = W*0.16;
-      ctx.font = "800 " + Math.round(H*0.026) + "px 'Poppins','Segoe UI',sans-serif";
+      ctx.font = "800 " + Math.round(H*0.034) + "px 'Poppins','Segoe UI',sans-serif";
       ctx.fillStyle = "#16233F";
       ctx.fillText(String(r.wpm ?? 0) + " WPM", W/2 - gap, metricY - H*0.01);
       ctx.fillText((r.accuracy ?? 0) + "% Accuracy", W/2 + gap, metricY - H*0.01);
@@ -2054,28 +2083,33 @@ function doDownloadCertificate(){
       ctx.strokeStyle = "rgba(22,35,63,0.35)";
       ctx.lineWidth = Math.max(1, H*0.0014);
       ctx.beginPath();
-      ctx.moveTo(W/2, metricY - H*0.045);
-      ctx.lineTo(W/2, metricY + H*0.02);
+      ctx.moveTo(W/2, metricY - H*0.05);
+      ctx.lineTo(W/2, metricY + H*0.025);
       ctx.stroke();
 
-      ctx.font = "700 " + Math.round(H*0.012) + "px 'Poppins','Segoe UI',sans-serif";
+      ctx.font = "700 " + Math.round(H*0.016) + "px 'Poppins','Segoe UI',sans-serif";
       ctx.fillStyle = "#B8862E";
-      ctx.fillText("SPEED", W/2 - gap, metricY + H*0.022);
-      ctx.fillText("PRECISION", W/2 + gap, metricY + H*0.022);
+      ctx.fillText("SPEED", W/2 - gap, metricY + H*0.028);
+      ctx.fillText("PRECISION", W/2 + gap, metricY + H*0.028);
+
+      // Date + Duration line
+      ctx.font = "600 " + Math.round(H*0.015) + "px 'Poppins','Segoe UI',sans-serif";
+      ctx.fillStyle = "#454B58";
+      ctx.fillText("Date " + dateStr + "   ·   Duration " + durStr, W/2, H*0.775);
 
       const link = document.createElement("a");
       link.download = "typedrift-certificate.png";
       link.href = c.toDataURL("image/png");
       link.click();
-      certStatusEl.textContent = "Downloaded.";
+      showToast("Certificate downloaded.");
     }catch(err){
-      certStatusEl.textContent = "Could not generate certificate. Try a screenshot instead.";
+      showToast("Could not generate certificate. Try a screenshot instead.");
     }finally{
       btn.disabled = false;
     }
   };
   bg.onerror = () => {
-    certStatusEl.textContent = "Could not load certificate background.";
+    showToast("Could not load certificate background.");
     btn.disabled = false;
   };
   bg.src = getComputedStyle(document.getElementById("certificate")).backgroundImage.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
@@ -2084,8 +2118,7 @@ function doDownloadCertificate(){
 document.getElementById("downloadCertBtn").addEventListener("click", () => {
   const session = getSession();
   if(!session){
-    certStatusEl.textContent = "Please log in to download your certificate.";
-    certStatusEl.className = "cert-status error";
+    showToast("Please log in to download your certificate.");
     openAuthModal("login", doDownloadCertificate);
     return;
   }
@@ -2184,26 +2217,64 @@ document.getElementById("confirmClearBtn").addEventListener("click", () => {
 });
 clearModal.addEventListener("click", (e) => { if(e.target === clearModal) clearModal.classList.remove("active"); });
 
+/* top typists modal */
+const topTypistsModal = document.getElementById("topTypistsModal");
+const checkTopTypistBtn = document.getElementById("checkTopTypistBtn");
+const closeTopTypistsBtn = document.getElementById("closeTopTypistsBtn");
+const topTypistsBody = document.getElementById("topTypistsBody");
+
+function renderTopTypists(typists){
+  if(!typists || typists.length === 0){
+    topTypistsBody.innerHTML = '<div class="top-typists-empty">No leaderboard data available yet.</div>';
+    return;
+  }
+  const rows = typists.map((t, i) => `
+    <tr>
+      <td class="rank">${i + 1}</td>
+      <td class="name">${escapeHtml(t.name || t.username || 'Anonymous')}</td>
+      <td class="wpm">${t.wpm ?? 0}</td>
+      <td class="acc">${(t.accuracy ?? 0).toFixed(1).replace(/\.0$/,'')}%</td>
+      <td class="dur">${t.duration ?? 0}s</td>
+    </tr>
+  `).join("");
+  topTypistsBody.innerHTML = `
+    <table class="leaderboard-table">
+      <thead><tr><th>#</th><th>Name</th><th>WPM</th><th>Accuracy</th><th>Duration</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
+}
+
+function escapeHtml(str){
+  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+  return String(str).replace(/[&<>"']/g, m => map[m]);
+}
+
+async function loadTopTypists(){
+  topTypistsBody.innerHTML = `
+    <div class="loading-bar-wrap" aria-busy="true" aria-label="Loading leaderboard…">
+      <div class="loading-eq"><span></span><span></span><span></span><span></span><span></span></div>
+      <div class="loading-bar-label">Loading leaderboard…</div>
+    </div>
+  `;
+  topTypistsModal.classList.add("active");
+  try{
+    const res = await apiCall("get_top_typists", { limit: 20 });
+    renderTopTypists(res.typists || []);
+  }catch(err){
+    topTypistsBody.innerHTML = `<div class="top-typists-empty">${err.message || "Could not load leaderboard."}</div>`;
+  }
+}
+
+checkTopTypistBtn.addEventListener("click", loadTopTypists);
+closeTopTypistsBtn.addEventListener("click", () => topTypistsModal.classList.remove("active"));
+topTypistsModal.addEventListener("click", (e) => { if(e.target === topTypistsModal) topTypistsModal.classList.remove("active"); });
+
 /* =========================================================
    13. SAVE SCORE TO GOOGLE SHEET (via Google Apps Script)
-   ---------------------------------------------------------
-   1. Set up the Google Apps Script backend using the
-      accompanying "Code.gs" file (deploy it as a Web App)
-      and paste the deployment's Web App URL below.
-   2. This SAME url also powers login / signup / OTP / forgot
-      password — see section 13b just below. Only one URL
-      is needed.
-   3. Saving a score now requires the user to be logged in;
-      identity (name + email) is taken from the session,
-      not typed in manually.
 ========================================================= */
-
 // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-// PUT YOUR GOOGLE APPS SCRIPT WEB APP URL HERE (used for
-// scores AND for login/signup/OTP/forgot-password — one
-// deployment, one URL):
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9aR1fKmrP31UqYBiVx4LpoCWxUoJv932_IuOSeBpCXGvsvtqh1JYK3HwJ4fWJLR4Syw/exec";
-// Example: "https://script.google.com/macros/s/AKfycb.../exec"
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzDdxcwKbb8Dodq7gdkrN5CNmAdUBXr5I900wJWWPRd5tARN6S1IEfo3IEwKEwjN4E5gw/exec";
 // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 function apiCall(action, data){
@@ -2289,12 +2360,50 @@ document.getElementById("saveNoBtn").addEventListener("click", () => {
    13b. AUTH — signup / OTP verification / login / forgot
    password / session
    ---------------------------------------------------------
-   Uses the SAME APPS_SCRIPT_URL above. The Apps Script
-   backend (Code.gs) writes accounts to a separate "Users"
-   sheet, emails a 6-digit OTP on signup and on password
-   reset requests, and checks email+password on login. See
-   Code.gs for setup notes.
+   
 ========================================================= */
+
+// Rate limiting for auth attempts
+const AUTH_RATE_KEY = "ar_typelab_auth_rate_v1";
+const MAX_AUTH_ATTEMPTS = 5;
+const AUTH_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+
+function checkAuthRateLimit(){
+  try{
+    const raw = localStorage.getItem(AUTH_RATE_KEY);
+    if(!raw) return { allowed: true, remaining: MAX_AUTH_ATTEMPTS, retryAfter: 0 };
+    const data = JSON.parse(raw);
+    const now = Date.now();
+    // prune old attempts
+    const attempts = (data.attempts || []).filter(t => now - t < AUTH_WINDOW_MS);
+    if(attempts.length >= MAX_AUTH_ATTEMPTS){
+      const oldest = attempts[0];
+      const retryAfter = Math.ceil((oldest + AUTH_WINDOW_MS - now) / 1000);
+      return { allowed: false, remaining: 0, retryAfter };
+    }
+    return { allowed: true, remaining: MAX_AUTH_ATTEMPTS - attempts.length, retryAfter: 0 };
+  }catch(err){
+    return { allowed: true, remaining: MAX_AUTH_ATTEMPTS, retryAfter: 0 };
+  }
+}
+
+function recordAuthAttempt(){
+  try{
+    const raw = localStorage.getItem(AUTH_RATE_KEY);
+    const data = raw ? JSON.parse(raw) : { attempts: [] };
+    const now = Date.now();
+    data.attempts = (data.attempts || []).filter(t => now - t < AUTH_WINDOW_MS);
+    data.attempts.push(now);
+    localStorage.setItem(AUTH_RATE_KEY, JSON.stringify(data));
+  }catch(err){}
+}
+
+function formatRetryTime(seconds){
+  const m = Math.floor(seconds / 60);
+  const s = seconds % 60;
+  return m > 0 ? `${m}m ${s}s` : `${s}s`;
+}
+
 const SESSION_KEY = "ar_typelab_session_v1";
 
 function getSession(){
@@ -2475,6 +2584,12 @@ function syncScoresFromCloud(email){
 // ---- LOGIN ----
 loginPanel.addEventListener("submit", (e) => {
   e.preventDefault();
+  const rate = checkAuthRateLimit();
+  if(!rate.allowed){
+    loginStatus.textContent = `Too many attempts. Try again in ${formatRetryTime(rate.retryAfter)}.`;
+    loginStatus.className = "auth-status error";
+    return;
+  }
   const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
   if(!email || !password){
@@ -2484,6 +2599,7 @@ loginPanel.addEventListener("submit", (e) => {
   }
   loginStatus.textContent = "Logging in…";
   loginStatus.className = "auth-status pending";
+  recordAuthAttempt();
   apiCall("login", { email, password })
     .then(res => {
       setSession({ username: res.username || email.split("@")[0], email });
@@ -2502,6 +2618,12 @@ loginPanel.addEventListener("submit", (e) => {
 // ---- SIGN UP ----
 signupPanel.addEventListener("submit", (e) => {
   e.preventDefault();
+  const rate = checkAuthRateLimit();
+  if(!rate.allowed){
+    signupStatus.textContent = `Too many attempts. Try again in ${formatRetryTime(rate.retryAfter)}.`;
+    signupStatus.className = "auth-status error";
+    return;
+  }
   const username = document.getElementById("signupUsername").value.trim();
   const email = document.getElementById("signupEmail").value.trim();
   const password = document.getElementById("signupPassword").value;
@@ -2526,6 +2648,7 @@ signupPanel.addEventListener("submit", (e) => {
 
   signupStatus.textContent = "Creating account…";
   signupStatus.className = "auth-status pending";
+  recordAuthAttempt();
   apiCall("signup", { username, email, password })
     .then(() => {
       pendingOtpEmail = email;
